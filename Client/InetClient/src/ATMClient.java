@@ -1,4 +1,3 @@
-
 import java.io.*;   
 import java.net.*;  
 import java.util.Scanner;
@@ -9,12 +8,11 @@ import java.util.Scanner;
 public class ATMClient {
     private static int connectionPort = 8989;
     
-    @SuppressWarnings("deprecation")
-	public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException {
         
         Socket ATMSocket = null;
-        DataOutputStream out = null;
-        DataInputStream in = null;
+        PrintWriter out = null;
+        BufferedReader in = null;
         String adress = "";
 
         try {
@@ -25,8 +23,9 @@ public class ATMClient {
         }
         try {
             ATMSocket = new Socket(adress, connectionPort); 
-            out = new DataOutputStream(ATMSocket.getOutputStream());
-            in = new DataInputStream(ATMSocket.getInputStream());
+            out = new PrintWriter(ATMSocket.getOutputStream(), true);
+            in = new BufferedReader(new InputStreamReader
+                                    (ATMSocket.getInputStream()));
         } catch (UnknownHostException e) {
             System.err.println("Unknown host: " +adress);
             System.exit(1);
@@ -42,21 +41,21 @@ public class ATMClient {
         System.out.print("> ");
         int menuOption = scanner.nextInt();
         int userInput;
-        out.write(menuOption);
+        out.println(menuOption);
         while(menuOption < 4) {
                 if(menuOption == 1) {
                         System.out.println(in.readLine()); 
                         System.out.println(in.readLine());
                         System.out.print("> ");
                         menuOption = scanner.nextInt();
-                        out.write(menuOption);           
+                        out.println(menuOption);           
                 } else if (menuOption > 3) {
                     break;
                 }	
                 else {
                     System.out.println(in.readLine()); 
                     userInput = scanner.nextInt();
-                    out.write(userInput);
+                    out.println(userInput);
                     String str;
                     do {
                         str = in.readLine();
@@ -64,7 +63,7 @@ public class ATMClient {
                     } while (! str.startsWith("(1)"));
                     System.out.print("> ");
                     menuOption = scanner.nextInt();
-                    out.write(menuOption);           
+                    out.println(menuOption);           
                 }	
         }		
 		
