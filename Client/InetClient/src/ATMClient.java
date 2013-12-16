@@ -16,7 +16,7 @@ public class ATMClient {
         BufferedReader in = null;
         String adress = "";
 
-        try {
+        try {		
             adress = args[0];
         } catch (ArrayIndexOutOfBoundsException e) {
             System.err.println("Missing argument ip-adress");
