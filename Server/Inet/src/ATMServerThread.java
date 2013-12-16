@@ -6,16 +6,16 @@ import java.net.*;
 */
 public class ATMServerThread extends Thread {
     private Socket socket = null;
-    private BufferedReader in;
-    PrintWriter out;
+    private DataInputStream in;
+    DataOutputStream out;
     public ATMServerThread(Socket socket) {
         super("ATMServerThread");
         this.socket = socket;
     }
 
     private String readLine() throws IOException {
-        String str = in.readLine();
-        //System.out.println(""  + socket + " : " + str);
+        String str = in.readUTF();
+        //System.out.println("  + socket + " : " + str);
         return str;
     }
 
@@ -26,16 +26,15 @@ public class ATMServerThread extends Thread {
     public void run(){
          
         try {
-            out = new PrintWriter(socket.getOutputStream(), true);
-            in = new BufferedReader
-                (new InputStreamReader(socket.getInputStream()));
+            out = new DataOutputStream(socket.getOutputStream());
+            in = new DataInputStream(socket.getInputStream());
 	
             String inputLine, outputLine;
 	
             int balance = 1000;
             int value;
             validateUser();
-            out.println("Welcome to Bank! (1)Balance, (2)Withdrawal, (3)Deposit, (4)Exit"); 
+            out.writeChars("Welcome to Bank! (1)Balance, (2)Withdrawal, (3)Deposit, (4)Exit"); 
             inputLine = readLine();
             int choise = Integer.parseInt(inputLine);
             while (choise != 4) {
@@ -44,13 +43,13 @@ public class ATMServerThread extends Thread {
                 case 2:
                     deposit = -1;
                 case 3:
-                    out.println("Enter amount: ");	
+                    out.writeChars("Enter amount: ");	
                     inputLine= readLine();
                     value = Integer.parseInt(inputLine);
                     balance += deposit * value;
                 case 1:
-                    out.println("Current balance is " + balance + " dollars");
-                    out.println("(1)Balance, (2)Withdrawal, (3)Deposit, (4)Exit");
+                    out.writeChars("Current balance is " + balance + " dollars");
+                    out.writeChars("(1)Balance, (2)Withdrawal, (3)Deposit, (4)Exit");
                     inputLine=readLine();
                     choise = Integer.parseInt(inputLine);
                     break;
@@ -60,7 +59,7 @@ public class ATMServerThread extends Thread {
                     break;
                 }
             }
-            out.println("Good Bye");
+            out.writeChars("Good Bye");
             out.close();
             in.close();
             socket.close();
