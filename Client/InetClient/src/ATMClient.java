@@ -130,7 +130,7 @@ public class ATMClient {
 	        	break;
 	        }
         }
-
+        System.out.println(msgExit);
         out.close();
         in.close();
         scanner.close();
