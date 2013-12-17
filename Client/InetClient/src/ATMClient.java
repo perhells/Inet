@@ -50,8 +50,6 @@ public class ATMClient {
 
         System.out.println("Contacting bank ... ");
         
-        // system.out.println(in.readLine()); 
-        
         Scanner scanner = new Scanner(System.in);
         
     	System.out.println(msgWelcome);	// Prints the welcome message.
@@ -62,7 +60,6 @@ public class ATMClient {
         out.println(menuOption);  
         int serverOption = Integer.parseInt(in.readLine());	// Reads from server.
         while (serverOption != 7) {							// Loop unless choise is to exit.
-        	// System.out.println("Read " + serverOption + " from server.");
 	        switch (serverOption) {
 	        case 0:	// Prints menu and waits for input.
 	        	System.out.println(msgMenu);
@@ -138,36 +135,5 @@ public class ATMClient {
         in.close();
         scanner.close();
         ATMSocket.close();
-        
-        /**
-        System.out.print("> ");
-        int menuOption = scanner.nextInt();
-        int userInput;
-        out.println(menuOption);
-        while(menuOption < 4) {
-                if(menuOption == 1) {
-                        System.out.println(in.readLine()); 
-                        System.out.println(in.readLine());
-                        System.out.print("> ");
-                        menuOption = scanner.nextInt();
-                        out.println(menuOption);           
-                } else if (menuOption > 3) {
-                    break;
-                }	
-                else {
-                    System.out.println(in.readLine()); 
-                    userInput = scanner.nextInt();
-                    out.println(userInput);
-                    String str;
-                    do {
-                        str = in.readLine();
-                        System.out.println(str);
-                    } while (! str.startsWith("(1)"));
-                    System.out.print("> ");
-                    menuOption = scanner.nextInt();
-                    out.println(menuOption);           
-                }	
-        }		
-		*/
     }
 }   
