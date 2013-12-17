@@ -35,32 +35,54 @@ public class ATMServerThread extends Thread {
             int balance = 1000;
             int value;
             validateUser();
-            out.println("Welcome to Bank! (1)Balance, (2)Withdrawal, (3)Deposit, (4)Exit"); 
             inputLine = readLine();
             int choise = Integer.parseInt(inputLine);
-            while (choise != 4) {
+            while (choise != 5) {
+            	System.out.println("Choise is: " + choise);
                 int deposit = 1;
                 switch (choise) {
-                case 2:
+                case 2:	// Withdraw
                     deposit = -1;
-                case 3:
-                    out.println("Enter amount: ");	
+                case 3: // Deposit
+                    out.println(5);	
                     inputLine= readLine();
                     value = Integer.parseInt(inputLine);
-                    balance += deposit * value;
-                case 1:
-                    out.println("Current balance is " + balance + " dollars");
-                    out.println("(1)Balance, (2)Withdrawal, (3)Deposit, (4)Exit");
+                    if (value > 0) {
+                    	if (deposit < 0 && value > balance){
+                    		out.println(9);
+                            out.println(balance);
+                            inputLine=readLine();
+                            choise = Integer.parseInt(inputLine);
+                            break;
+                    	}
+                    	balance += deposit * value;
+                    } else {
+                    	out.println(8);
+                        inputLine = readLine();
+                        choise = Integer.parseInt(inputLine);
+                        break;
+                    }
+                case 1: // Balance
+                    out.println(4);
+                    out.println(balance);
                     inputLine=readLine();
                     choise = Integer.parseInt(inputLine);
                     break;
-                case 4:
+                case 4: // Language
+                    out.println(6);
+                    inputLine=readLine();
+                    choise = Integer.parseInt(inputLine);
+                	break;
+                case 5: // Exit
                     break;
                 default: 
+                    out.println(8);
+                    inputLine = readLine();
+                    choise = Integer.parseInt(inputLine);
                     break;
                 }
             }
-            out.println("Good Bye");
+            out.println(7);
             out.close();
             in.close();
             socket.close();
@@ -71,23 +93,15 @@ public class ATMServerThread extends Thread {
     }
     
     
-    private static String textBalance = "";
-	private static String textWithdrawal = "";
-	private static String textDeposit = "";
-	private static String textCLang = "";
-	private static String textExit = "";
-	private static String textIFunds = "";
-	private static String textAFailed = "";
-	private static String textUnknown = "";
-	private static String textSum = "";
-	private static String textLangList = "";
-	private static String textConfCode = "";
-    private static String menu = "";
-    private static String banner = "";
-    
     @SuppressWarnings("unused")
 	private static void banner(BufferedReader in) {
-    	String newBanner = in.readLine();
+    	String newBanner;
+		try {
+			newBanner = in.readLine();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     	if(banner.length() < 1) { //at least one sign
     		banner = newBanner;
     		composeMenu();
