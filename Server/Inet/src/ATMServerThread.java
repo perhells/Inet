@@ -69,4 +69,37 @@ public class ATMServerThread extends Thread {
         }
     
     }
+    
+    
+    private static String textBalance = "";
+	private static String textWithdrawal = "";
+	private static String textDeposit = "";
+	private static String textCLang = "";
+	private static String textExit = "";
+	private static String textIFunds = "";
+	private static String textAFailed = "";
+	private static String textUnknown = "";
+	private static String textSum = "";
+	private static String textLangList = "";
+	private static String textConfCode = "";
+    private static String menu = "";
+    private static String banner = "";
+    
+    @SuppressWarnings("unused")
+	private static void banner(BufferedReader in) {
+    	String newBanner = in.readLine();
+    	if(banner.length() < 1) { //at least one sign
+    		banner = newBanner;
+    		composeMenu();
+    	}
+    }
+    
+    /*
+     * Compose the clients menu
+     */
+	private static void composeMenu() {
+    	menu = "--[ " + banner + " ]--\n(1)"; 
+    }
+    
+    
 }
