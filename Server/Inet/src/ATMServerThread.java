@@ -30,7 +30,7 @@ public class ATMServerThread extends Thread {
             in = new BufferedReader
                 (new InputStreamReader(socket.getInputStream()));
 	
-            String inputLine, outputLine;
+            String inputLine;
 	
             int balance = 1000;
             int value;
