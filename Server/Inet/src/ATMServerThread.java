@@ -5,6 +5,10 @@ import java.net.*;
    @author Viebrapadata
 */
 public class ATMServerThread extends Thread {
+	private int[] userNames = new int[]{1,2};
+	private int[] userPasswords = new int[]{1,2};
+	private int[] userFunds = new int[]{1000,1000};
+	
     private Socket socket = null;
     private BufferedReader in;
     PrintWriter out;
@@ -15,12 +19,35 @@ public class ATMServerThread extends Thread {
 
     private String readLine() throws IOException {
         String str = in.readLine();
-        //System.out.println(""  + socket + " : " + str);
+        System.out.println(""  + socket + " : " + str);
         return str;
     }
 
-    private boolean validateUser() {
-        return true;
+    private int validateUser() throws IOException {
+    	for(;;){
+	    	int userName = Integer.parseInt(readLine());
+	    	System.out.println("User name is: " + userName);
+	    	int userPass = Integer.parseInt(readLine());
+	    	System.out.println("User pass is: " + userPass);
+	    	for(int i = 0; i < userNames.length; i++){
+	    		if (userName == userNames[i] && userPass == userPasswords[i]) {
+	    			System.out.println("Success!");
+	    			out.println(1);
+	    			return userFunds[i];
+	    		}
+	    	}
+			System.out.println("Fail!");
+			out.println(0);
+    	}
+    }
+    
+    private boolean validateWithdraw() throws IOException {
+    		out.println(3);
+    		int code = Integer.parseInt(readLine());
+    		if(code % 2 == 1 && code > 0 && code < 100){
+    			return true;
+    		}
+    	return false;
     }
 
     public void run(){
@@ -32,9 +59,8 @@ public class ATMServerThread extends Thread {
 	
             String inputLine;
 	
-            int balance = 1000;
             int value;
-            validateUser();
+            int balance = validateUser();
             inputLine = readLine();
             int choise = Integer.parseInt(inputLine);
             while (choise != 5) {
@@ -48,14 +74,36 @@ public class ATMServerThread extends Thread {
                     inputLine= readLine();
                     value = Integer.parseInt(inputLine);
                     if (value > 0) {
-                    	if (deposit < 0 && value > balance){
-                    		out.println(9);
+                    	if (deposit < 0){
+                    		if (value <= balance){
+	                    		if(validateWithdraw()){
+	                        		balance += deposit * value;
+	                        		out.println(4);
+	                                out.println(balance);
+	                                inputLine=readLine();
+	                                choise = Integer.parseInt(inputLine);
+	                                break;
+	                    		}else{
+	                    			out.println(10);
+	                    			inputLine=readLine();
+	                    			choise = Integer.parseInt(inputLine);
+	                        		break;
+	                    		}
+                    		}else{
+                    			out.println(9);
+                    			out.println(balance);
+                    			inputLine=readLine();
+                    			choise = Integer.parseInt(inputLine);
+                        		break;
+                    		}
+                    	}else{
+                    		balance += deposit * value;
+                    		out.println(4);
                             out.println(balance);
-                            inputLine=readLine();
-                            choise = Integer.parseInt(inputLine);
-                            break;
+                			inputLine=readLine();
+                			choise = Integer.parseInt(inputLine);
+                    		break;
                     	}
-                    	balance += deposit * value;
                     } else {
                     	out.println(8);
                         inputLine = readLine();
@@ -92,7 +140,7 @@ public class ATMServerThread extends Thread {
     
     }
     
-    
+/**
     @SuppressWarnings("unused")
 	private static void banner(BufferedReader in) {
     	String newBanner;
@@ -107,13 +155,13 @@ public class ATMServerThread extends Thread {
     		composeMenu();
     	}
     }
-    
+*/
     /*
      * Compose the clients menu
      */
-	private static void composeMenu() {
+/**
+    private static void composeMenu() {
     	menu = "--[ " + banner + " ]--\n(1)"; 
     }
-    
-    
+*/  
 }

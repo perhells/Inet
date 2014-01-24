@@ -17,6 +17,7 @@ public class ATMClient {
 	private static String msgError = "Error!";
 	private static String msgExit = "Farewell my good sir!";
 	private static String msgLow = "You don't have enough money to do that.";
+	private static String msgWrong = "Incorrect security code.";
 	
 	
 	
@@ -49,9 +50,18 @@ public class ATMClient {
         }
 
         System.out.println("Contacting bank ... ");
-        
         Scanner scanner = new Scanner(System.in);
-        
+        for (;;) {
+    		System.out.println(msgUser);
+    		out.println(scanner.nextInt());
+    		System.out.println(msgPass);
+    		out.println(scanner.nextInt());
+    		int successful = Integer.parseInt(in.readLine());
+    		if (successful == 1) {
+    			break;
+    		}
+    		System.out.println(msgError);
+        }
     	System.out.println(msgWelcome);	// Prints the welcome message.
     	System.out.println(msgMenu);	// Prints the menu.
     	System.out.print("> ");			// Prints "> ".
@@ -117,7 +127,7 @@ public class ATMClient {
                 out.println(menuOption);   
                 serverOption = Integer.parseInt(in.readLine());      
 	        	break;
-	        case 9:
+	        case 9: // Prints low message.
 	        	System.out.println(msgLow);
 	        	System.out.println(msgBalance + Integer.parseInt(in.readLine()));
 	        	System.out.println(msgMenu);
@@ -125,7 +135,15 @@ public class ATMClient {
                 menuOption = scanner.nextInt();
                 out.println(menuOption);   
                 serverOption = Integer.parseInt(in.readLine());   
-	        	
+                break;
+	        case 10: // Prints wrong code message.
+	        	System.out.println(msgWrong);
+	        	System.out.println(msgMenu);
+                System.out.print("> ");
+                menuOption = scanner.nextInt();
+                out.println(menuOption);   
+                serverOption = Integer.parseInt(in.readLine());  
+                break;
 	        default:
 	        	break;
 	        }
@@ -135,5 +153,5 @@ public class ATMClient {
         in.close();
         scanner.close();
         ATMSocket.close();
-    }
+	}
 }   
