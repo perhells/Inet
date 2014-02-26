@@ -139,7 +139,7 @@ public class ATMServerThread extends Thread {
         }
     
     }
-    
+    /*
 /**
     @SuppressWarnings("unused")
 	private static void banner(BufferedReader in) {
@@ -155,13 +155,15 @@ public class ATMServerThread extends Thread {
     		composeMenu();
     	}
     }
-*/
+    */
+
     /*
      * Compose the clients menu
-     */
+   
 /**
     private static void composeMenu() {
     	menu = "--[ " + banner + " ]--\n(1)"; 
     }
-*/  
+     */ 
+ 
 }
