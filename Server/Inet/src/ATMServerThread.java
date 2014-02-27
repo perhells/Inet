@@ -29,12 +29,16 @@ public class ATMServerThread extends Thread {
 	    	System.out.println("User name is: " + userName);
 	    	int userPass = Integer.parseInt(readLine());
 	    	System.out.println("User pass is: " + userPass);
-	    	for(int i = 0; i < userNames.length; i++){
-	    		if (userName == userNames[i] && userPass == userPasswords[i]) {
-	    			System.out.println("Success!");
-	    			out.println(1);
-	    			return userFunds[i];
-	    		}
+	    	int userCode = Integer.parseInt(readLine());
+	    	System.out.println("User code is: " + userCode);
+	    	if(userCode > 0 && userCode < 100 && userCode % 2 == 1) {
+		    	for(int i = 0; i < userNames.length; i++){
+		    		if (userName == userNames[i] && userPass == userPasswords[i]) {
+		    			System.out.println("Success!");
+		    			out.println(1);
+		    			return userFunds[i];
+		    		}
+		    	}
 	    	}
 			System.out.println("Fail!");
 			out.println(0);
@@ -138,6 +142,14 @@ public class ATMServerThread extends Thread {
             e.printStackTrace();
         }
     
+    }
+    
+    private void loadLanguages() {
+    	
+    }
+    
+	private void transferLanguage() {
+    	
     }
     /*
 /**
