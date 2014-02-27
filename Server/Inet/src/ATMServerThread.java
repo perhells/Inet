@@ -3,7 +3,10 @@ import java.net.*;
 
 /**
    @author Viebrapadata
-*/
+   
+   Sys
+   1,2,3,6  
+   */
 public class ATMServerThread extends Thread {
 	private int[] userNames = new int[]{1,2};
 	private int[] userPasswords = new int[]{1,2};
