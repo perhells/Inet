@@ -7,22 +7,6 @@ import java.util.Scanner;
 */
 public class ATMClient {
 	private static String[] phrase = new String[13];
-	/**
-	private static String phrase[1] = "Welcome!";
-	private static String phrase[2] = "Enter username: ";
-	private static String phrase[3] = "Enter password: ";
-	private static String phrase[4] = "Enter security code: ";
-	private static String phrase[5] = "1) Balance 2) Withdraw 3) Deposit 4) Language 5) Exit";
-	private static String phrase[6] = "Your balance is: ";
-	private static String phrase[7] = "Enter amount: ";
-	private static String phrase[8] = "Available languages: 1) English";
-	private static String phrase[9] = "Error!";
-	private static String phrase[10] = "Farewell my good sir!";
-	private static String phrase[11] = "You don't have enough money to do that.";
-	private static String phrase[12] = "Incorrect security code.";
-	*/
-	
-	
     private static int connectionPort = 8989;
     
     @SuppressWarnings("resource")
