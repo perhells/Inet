@@ -56,6 +56,8 @@ public class ATMClient {
     		out.println(scanner.nextInt());
     		System.out.println(msgPass);
     		out.println(scanner.nextInt());
+    		System.out.println(msgCode);
+    		out.println(scanner.nextInt());
     		int successful = Integer.parseInt(in.readLine());
     		if (successful == 1) {
     			break;
