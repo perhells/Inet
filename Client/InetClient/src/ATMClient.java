@@ -25,7 +25,8 @@ public class ATMClient {
 	
     private static int connectionPort = 8989;
     
-    public static void main(String[] args) throws IOException {
+    @SuppressWarnings("resource")
+	public static void main(String[] args) throws IOException {
     	
     	phrase[0] = "English";
     	phrase[1] = "Welcome!";
