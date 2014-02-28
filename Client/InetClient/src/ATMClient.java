@@ -17,7 +17,7 @@ public class ATMClient {
     	phrase[2] = "Enter username: ";
     	phrase[3] = "Enter password: ";
     	phrase[4] = "Enter security code: ";
-    	phrase[5] = "1) Balance 2) Withdraw 3) Deposit 4) Language 5) Exit";
+    	phrase[5] = "1) Balance 2) Withdraw 3) Deposit 4) Language 5) Logout";
     	phrase[6] = "Your balance is: ";
     	phrase[7] = "Enter amount: ";
     	phrase[8] = "Available languages: ";
@@ -52,6 +52,7 @@ public class ATMClient {
 
         System.out.println("Contacting bank ... ");
         Scanner scanner = new Scanner(System.in);
+        transferLanguage(in);
 	    for(;;){
 	        for (;;) {
 	    		System.out.println(phrase[2]);

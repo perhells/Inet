@@ -70,9 +70,8 @@ public class ATMServerThread extends Thread {
                 (new InputStreamReader(socket.getInputStream()));
 	
             String inputLine;
-            
-            
             int value;
+            transferLanguage(0);
             for(;;){
 	            balance = validateUser();
 	            banner = loadBanner();
