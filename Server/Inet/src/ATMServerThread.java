@@ -10,14 +10,15 @@ import java.net.*;
 public class ATMServerThread extends Thread {
 	int userName;
 	int balance;
-	int userCount = 3;
-	int languageCount = 2;
 	int phraseCount = 13;
+	int languageCount = 0;
 	String banner;
-	private int[] userNames  = new int[userCount];
-	private int[] userPasswords = new int[userCount];
-	private int[] userFunds = new int[userCount];
-	private String[][] languages = new String[languageCount][phraseCount];
+	private int[] userNames  = new int[0];
+	private int[] userPasswords = new int[0];
+	private int[] userFunds = new int[0];
+	private String[][] languages = new String[0][phraseCount];
+	//private ArrayList<String[]> languages = new ArrayList<String[]>(); 
+	// 
     private Socket socket = null;
     private BufferedReader in;
     PrintWriter out;
@@ -38,6 +39,7 @@ public class ATMServerThread extends Thread {
 	    	System.out.println("User name is: " + userName);
 	    	int userPass = Integer.parseInt(readLine());
 	    	System.out.println("User pass is: " + userPass);
+    		loadFromFile();
 	    	for(int i = 0; i < userNames.length; i++){
 	    		if (userName == userNames[i] && userPass == userPasswords[i]) {
 	    			System.out.println("Success!");
@@ -61,6 +63,7 @@ public class ATMServerThread extends Thread {
 
     public void run(){
     	loadFromFile();
+    	loadLanguages();
         try {
             out = new PrintWriter(socket.getOutputStream(), true);
             in = new BufferedReader
@@ -177,19 +180,34 @@ public class ATMServerThread extends Thread {
     
     private void loadFromFile() {
     	try(BufferedReader br = new BufferedReader(new FileReader("users.txt"))) {
+    		System.out.println("Started reading from file...");
             String line = br.readLine();
-            //System.out.println(line);
-            int index = 0;
+            int count = 0;
             while (line != null) {
-            	String[] temp = new String[3];
-            	temp = line.split("\\s+");
-            	System.out.println(Integer.parseInt(temp[0]));
-            	userNames[index] = Integer.parseInt(temp[0]);
-            	userPasswords[index] = Integer.parseInt(temp[1]);
-            	userFunds[index] = Integer.parseInt(temp[2]);
+            	System.out.println(count);
+            	count ++;
             	line = br.readLine();
-            	index++;
             }
+            userNames = new int[count];
+            userPasswords = new int[count];
+            userFunds = new int[count];
+            try(BufferedReader br2 = new BufferedReader(new FileReader("users.txt"))) {
+                String line2 = br2.readLine();
+	            System.out.println("read: " + line2);
+	            int index = 0;
+	            while (line2 != null) {
+	            	String[] temp = new String[3];
+	            	temp = line2.split("\\s+");
+	            	System.out.println(temp);
+	            	userNames[index] = Integer.parseInt(temp[0]);
+	            	userPasswords[index] = Integer.parseInt(temp[1]);
+	            	userFunds[index] = Integer.parseInt(temp[2]);
+	            	line2 = br2.readLine();
+	            	index++;
+	            }
+            } catch (IOException e) {
+    			e.printStackTrace();
+    		}
         } catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -213,27 +231,35 @@ public class ATMServerThread extends Thread {
     	writeToFile();
     }
     
-    private String loadLanguages() {
+    private void loadLanguages() {
     	try(BufferedReader br = new BufferedReader(new FileReader("languages.txt"))) {
-            StringBuilder sb = new StringBuilder();
             String line = br.readLine();
-            int wordIndex = 0;
-            int langIndex = 0;
-            while (line != null) {
-            	if(wordIndex == phraseCount){
-            		wordIndex = 0;
-            		langIndex++;
-            	}
-            	languages[langIndex][wordIndex] = line;
-                wordIndex++;
-                line = br.readLine();
+            int count = 0;
+            while(line!=null){
+            	count++;
+            	line = br.readLine();
             }
-            String everything = sb.toString();
-            return everything;
+            languageCount = count/phraseCount;
+            languages = new String[languageCount][phraseCount];
+            try(BufferedReader br2 = new BufferedReader(new FileReader("languages.txt"))) {
+	            int wordIndex = 0;
+	            int langIndex = 0;
+	            String line2 = br2.readLine();
+	            while (line2 != null) {
+	            	if(wordIndex == phraseCount){
+	            		wordIndex = 0;
+	            		langIndex++;
+	            	}
+	            	languages[langIndex][wordIndex] = line2;
+	                wordIndex++;
+	                line2 = br2.readLine();
+	            }
+            } catch (IOException e) {
+    			e.printStackTrace();
+    		}  
         } catch (IOException e) {
 			e.printStackTrace();
 		}
-    	return null;
     }
 
 	private void transferLanguage(int langIndex) {
