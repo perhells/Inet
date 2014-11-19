@@ -1,0 +1,39 @@
+0) English
+Welcome
+Enter username: 
+Enter password: 
+Enter security code: 
+1) Balance 2) Withdraw 3) Deposit 4) Language 5) Logout
+Your balance is: 
+Enter amount: 
+Available languages: 
+Error!
+Farewell my good sir!
+You don't have enough money to do that!
+Incorrect security code.
+1) Svenska
+Välkommen!
+Ange användarnamn: 
+Ange lösenord: 
+Ange säkerhetskod: 
+1) Saldo 2) Ta ut 3) Sätta in 4) Språk 5) Logga ut
+Ditt saldo är: 
+Ange summa:
+Tillgängliga språk: 
+Fel!
+Farväl!
+Du har inte tillräckligt mycket pengar på kontot.
+Felaktig kod.
+2) Latin 
+Lorem ipsum dolor sit 
+Suscipit, nomen usoris: 
+Password intrare: 
+Mauris suscipit elit, 
+I) Interdum II) Vade, III) Depositum IV) Language V) Exitus 
+Tuum est justo, 
+Intra spatium: 
+Nunc linguis: 
+Error? 
+Vale, vir bone.
+Non facere satis pecuniae? 
+Non rectae elit dolor.
